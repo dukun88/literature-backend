@@ -11,6 +11,17 @@ def result = currentBuild.currentResult.toLowerCase()
 pipeline {
     agent any
     stages {
+        stage('Send Notification') {
+            steps {
+            discordSend webhookURL: "https://discord.com/api/webhooks/1021335421482963015/uywS5a2wcsQIeoSXsgjzpCA65aCPLbl1VJU_2hR11rR9cIgp-2PifxR4Gu2ByQG3YBNt",
+            title: "${env.JOB_BASE_NAME} #${env.BUILD_NUMBER}",
+            result: currentBuild.currentResult,
+            description: "**Build:** ${env.BUILD_NUMBER}\n**Status:** ${result}\n\u2060",
+            enableArtifactsList: true,
+            showChangeset: true
+            }
+        }
+        
         stage('Pull Backend Repo') {
             steps {
                 sshagent([credentials]) {
@@ -59,18 +70,5 @@ pipeline {
                 }
             }
         }
-
-
-        stage('Send Notification') {
-            steps {
-            discordSend webhookURL: "https://discord.com/api/webhooks/1021335421482963015/uywS5a2wcsQIeoSXsgjzpCA65aCPLbl1VJU_2hR11rR9cIgp-2PifxR4Gu2ByQG3YBNt",
-            title: "${env.JOB_BASE_NAME} #${env.BUILD_NUMBER}",
-            result: currentBuild.currentResult,
-            description: "**Build:** ${env.BUILD_NUMBER}\n**Status:** ${result}\n\u2060",
-            enableArtifactsList: true,
-            showChangeset: true
-            }
-        }
-
     }
 }
