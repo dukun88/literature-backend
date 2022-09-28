@@ -4,7 +4,7 @@ def url = "git@github.com:dukun88/literature-backend.git"
 def branch = "Production"
 def dir = "literature-backend"
 def userdock = "alfredo88"
-def compile = "database.yml"
+def compfile = "database.yml"
 def image = "masedo-backend"
 def result = currentBuild.currentResult.toLowerCase()
 
@@ -28,6 +28,7 @@ pipeline {
             steps {
                 sshagent([credentials]) {
                     sh """ssh -o StrictHostkeyChecking=no ${server} <<EOF
+                    docker compose -f ${compfile} down
                     docker compose -f ${compfile} up -d
                     Exit
                     EOF"""
@@ -39,6 +40,7 @@ pipeline {
             steps {
                 sshagent([credentials]) {
                     sh """ssh -o StrictHostkeyChecking=no ${server} <<EOF
+                    docker compose down
                     docker compose up -d
                     exit
                     EOF"""
