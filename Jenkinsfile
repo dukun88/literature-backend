@@ -1,6 +1,6 @@
 def credentials = "alfredo"
 def server = "masedo@103.181.142.234"
-def url = "https://github.com/dukun88/literature-backend.git"
+def url = "git@github.com:dukun88/literature-backend.git"
 def branch = "Production"
 def dir = "literature-backend"
 def userdock = "alfredo88"
