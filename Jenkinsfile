@@ -30,7 +30,7 @@ pipeline {
                     sh """ssh -o StrictHostkeyChecking=no ${server} <<EOF
                     docker compose -f ${compfile} down
                     docker compose -f ${compfile} up -d
-                    Exit
+                    exit
                     EOF"""
                 }
             }
