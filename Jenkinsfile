@@ -16,7 +16,7 @@ pipeline {
                 sshagent([credentials]) {
                     sh """ssh -o StrictHostkeyChecking=no ${server} <<EOF
                     cd ${dir}
-                    git remote add origin ${url} || git remote set-url origin ${url}
+                    git remote add jenkins ${url} || git remote set-url jenkins ${url}
                     git pull ${url} ${branch}
                     exit
                     EOF"""
